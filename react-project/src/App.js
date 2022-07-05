@@ -1,23 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  let title = 'JINY VLOG';
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      {/* nav */}
+        {/* JSX 문법 1 : className = class */}
+      <header className="black-nav">
+        {/* JSX 문법 2 : {}를 통해 바인딩이 가능하다. */}
+        <h4>{title}</h4>
       </header>
+      {/* end nav */}
+
+      {/* title */}
+        {/* JSX 문법 3 : style = {{style명 : '스타일 값'}} */}
+      <section style={{display:'flex', justifyContent:'center', fontSize:'26px'}}>
+        <h4>JINY LOG</h4>
+      </section>
+      {/* end title */}
     </div>
   );
 }

@@ -7,11 +7,13 @@ import { useState } from 'react';
 function App() {
   let title = 'JINY VLOG';
   // 게시판 제목 state
-  let [boardTitle, modifyTitle] = useState(['오늘의 옷 추천','오늘의 맛집 추천', '오늘의 머리 추천']);
+  let [boardTitle, modifyTitle] = useState(['2. 오늘의 옷 추천','1. 진짜 맛집 추천', '3. 오늘의 머리 추천']);
 
   // 게시판 제목 수정
   const modifyBoardTitle = () => {
-    modifyTitle(['오늘의 옷 추천','여자 코트 추천', '오늘의 머리 추천']);
+    let copy = [...boardTitle];
+    copy[1] = '여자 코트 추천';
+    modifyTitle(copy);
   }   
 
   // 좋아요 갯수 state
@@ -20,6 +22,12 @@ function App() {
   // heart count
   const heartCount = () => {
     heartPlus(++heart);
+  }
+
+  // sort title
+  const sortTitle = () => {
+    let copy = [...boardTitle.sort()];
+    modifyTitle(copy);
   }
 
   return (
@@ -47,7 +55,8 @@ function App() {
       </section>
       <section className="list">
         {/* state binding */}        
-        <h4>{boardTitle[1]} <button onClick={modifyBoardTitle}> 변경 </button></h4>
+        <h4>{boardTitle[1]}</h4>
+        <button onClick={modifyBoardTitle}> 변경 </button>
         <p>2월 17일</p>
       </section>
       <section className="list">
@@ -56,6 +65,14 @@ function App() {
         <p>2월 17일</p>
       </section>
       {/* end board layout */}
+
+      {/* sortTitleButton */}
+      <div 
+        onClick={sortTitle}
+        style={{display:'flex', justifyContent:'center', marginTop:'10px'}}
+        >
+        <button>정렬</button>
+      </div>
     </div>
   );
 }

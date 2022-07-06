@@ -7,7 +7,7 @@ import { useState } from 'react';
 function App() {
   let title = 'JINY VLOG';
   // board title state
-  let [boardTitle, modifyTitle] = useState(['2. 오늘의 옷 추천','1. 진짜 맛집 추천', '3. 오늘의 머리 추천']);
+  let [boardTitle, modifyTitle] = useState(['옷 추천','맛집 추천', '머리 추천']);
 
   // board title modify
   const modifyBoardTitle = () => {
@@ -23,11 +23,13 @@ function App() {
   }
 
   // heart state
-  let [heart, heartPlus] = useState(0);
+  let [heart, heartPlus] = useState([0,0,0]);
   
   // heart count
-  const heartCount = () => {
-    heartPlus(++heart);
+  const heartCount = (index) => {
+    let copy = [...heart];
+    copy[index] = copy[index] + 1;
+    heartPlus(copy);
   }
 
   // modal state (초기값 false로 설정하여 닫혀있는 상태)
@@ -56,24 +58,20 @@ function App() {
       </section>
       {/* end title */}
 
-      {/* board layout */}
-      <section className="list">
-        {/* state binding */}
-        <h4>{boardTitle[0]} <span onClick={heartCount}> ❤️ </span> {heart} </h4>
-        <p>2월 17일</p>
-      </section>
-      <section className="list">
-        {/* state binding */}        
-        <h4 onClick={openModal}>{boardTitle[1]}</h4>
-        <button onClick={modifyBoardTitle}> 변경 </button>
-        <p>2월 17일</p>
-      </section>
-      <section className="list">
-        {/* state binding */}        
-        <h4>{boardTitle[2]}</h4>
-        <p>2월 17일</p>
-      </section>
-      {/* end board layout */}
+      {/* board component */}
+      {
+        boardTitle.map((a, index) => {
+          return (
+            <section className="list">
+              {/* state binding */}
+              <h4 onClick={openModal}>{boardTitle[index]}</h4>
+              <span onClick={() => {heartCount(index)}}> ❤️ </span> {heart[index]}
+              <p>2월 17일</p>
+            </section>
+          )
+        })
+      }
+      {/* end board component */}
 
       {/* sortTitleButton */}
       <div 
@@ -108,3 +106,7 @@ const Modal = () => {
 // end modal component
 
 export default App;
+
+[1,2,3].map((a) => {
+  console.log(a);
+})

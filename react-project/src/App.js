@@ -6,17 +6,23 @@ import { useState } from 'react';
 
 function App() {
   let title = 'JINY VLOG';
-  // 게시판 제목 state
+  // board title state
   let [boardTitle, modifyTitle] = useState(['2. 오늘의 옷 추천','1. 진짜 맛집 추천', '3. 오늘의 머리 추천']);
 
-  // 게시판 제목 수정
+  // board title modify
   const modifyBoardTitle = () => {
     let copy = [...boardTitle];
     copy[1] = '여자 코트 추천';
     modifyTitle(copy);
   }   
 
-  // 좋아요 갯수 state
+  // board title sort 
+  const sortTitle = () => {
+    let copy = [...boardTitle.sort()];
+    modifyTitle(copy);
+  }
+
+  // heart state
   let [heart, heartPlus] = useState(0);
   
   // heart count
@@ -24,10 +30,13 @@ function App() {
     heartPlus(++heart);
   }
 
-  // sort title
-  const sortTitle = () => {
-    let copy = [...boardTitle.sort()];
-    modifyTitle(copy);
+  // modal state (초기값 false로 설정하여 닫혀있는 상태)
+  let [modal, setModal] = useState(false);
+  
+  // open modal
+  let openModal = () => {
+    // modal의 상태를 setState로 변경함으로써 UI 상태 변경
+    setModal(!modal);
   }
 
   return (
@@ -55,7 +64,7 @@ function App() {
       </section>
       <section className="list">
         {/* state binding */}        
-        <h4>{boardTitle[1]}</h4>
+        <h4 onClick={openModal}>{boardTitle[1]}</h4>
         <button onClick={modifyBoardTitle}> 변경 </button>
         <p>2월 17일</p>
       </section>
@@ -75,8 +84,11 @@ function App() {
       </div>
       {/* end sortTitleButton */}
 
-      {/* modal */}
-      <Modal/>
+      {/* jsx의 조건부 바인딩 */}
+      {
+        // modal의 상태가 true일 때 Modal 등장
+        modal == true ? <Modal></Modal> : '' 
+      }
     </div>
   );
 }

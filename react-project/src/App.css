@@ -12,3 +12,10 @@
   padding-left: 20px;
   border-bottom: 1px solid grey;
 }
+
+.modal {
+  background-color: #F1F0F1;
+  margin-top: 20px;
+  text-align: left;
+  padding: 20px;
+}

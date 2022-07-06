@@ -73,8 +73,26 @@ function App() {
         >
         <button>정렬</button>
       </div>
+      {/* end sortTitleButton */}
+
+      {/* modal */}
+      <Modal/>
     </div>
   );
 }
+
+// modal component
+const Modal = () => {
+  return (
+  <>
+    <div className="modal">
+      <p>제목</p>
+      <p>날짜</p>
+      <p>날짜</p>
+    </div>
+  </>    
+  )
+}
+// end modal component
 
 export default App;

@@ -1,12 +1,27 @@
+/* eslint-disable */
+import logo from './logo.svg';
 import './App.css';
 // useState import
 import { useState } from 'react';
 
 function App() {
   let title = 'JINY VLOG';
-  // state 생성
-  let [boardTitle] = useState(['오늘의 옷 추천','오늘의 맛집 추천', '오늘의 머리 추천']);
+  // 게시판 제목 state
+  let [boardTitle, modifyTitle] = useState(['오늘의 옷 추천','오늘의 맛집 추천', '오늘의 머리 추천']);
+
+  // 게시판 제목 수정
+  const modifyBoardTitle = () => {
+    modifyTitle(['오늘의 옷 추천','여자 코트 추천', '오늘의 머리 추천']);
+  }   
+
+  // 좋아요 갯수 state
+  let [heart, heartPlus] = useState(0);
   
+  // heart count
+  const heartCount = () => {
+    heartPlus(++heart);
+  }
+
   return (
     <div className="App">
       {/* nav */}
@@ -27,12 +42,12 @@ function App() {
       {/* board layout */}
       <section className="list">
         {/* state binding */}
-        <h4>{boardTitle[0]}</h4>
+        <h4>{boardTitle[0]} <span onClick={heartCount}> ❤️ </span> {heart} </h4>
         <p>2월 17일</p>
       </section>
       <section className="list">
         {/* state binding */}        
-        <h4>{boardTitle[1]}</h4>
+        <h4>{boardTitle[1]} <button onClick={modifyBoardTitle}> 변경 </button></h4>
         <p>2월 17일</p>
       </section>
       <section className="list">

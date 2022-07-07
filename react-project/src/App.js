@@ -8,11 +8,18 @@ function App() {
   let title = 'JINY VLOG';
   // board title state
   let [boardTitle, modifyTitle] = useState(['옷 추천','맛집 추천', '머리 추천']);
+  let[titleState, setTitleState] = useState(0);
+
+  const modifyTitle1 = () => {
+    boardTitle[2] = 
+    modifyTitle(boardTitle[2])
+  }
 
   // board title modify
   const modifyBoardTitle = () => {
     let copy = [...boardTitle];
-    copy[1] = '여자 코트 추천';
+    copy[2] = '여자 코트 추천';
+    console.log(copy);
     modifyTitle(copy);
   }   
 
@@ -21,6 +28,8 @@ function App() {
     let copy = [...boardTitle.sort()];
     modifyTitle(copy);
   }
+
+
 
   // heart state
   let [heart, heartPlus] = useState([0,0,0]);
@@ -34,12 +43,6 @@ function App() {
 
   // modal state (초기값 false로 설정하여 닫혀있는 상태)
   let [modal, setModal] = useState(false);
-  
-  // open modal
-  let openModal = () => {
-    // modal의 상태를 setState로 변경함으로써 UI 상태 변경
-    setModal(!modal);
-  }
 
   return (
     <div className="App">
@@ -64,7 +67,7 @@ function App() {
           return (
             <section className="list">
               {/* state binding */}
-              <h4 onClick={openModal}>{boardTitle[index]}</h4>
+              <h4 onClick={()=>{setModal(!modal); setTitleState(index) }}>{boardTitle[index]}</h4>
               <span onClick={() => {heartCount(index)}}> ❤️ </span> {heart[index]}
               <p>2월 17일</p>
             </section>
@@ -85,20 +88,21 @@ function App() {
       {/* jsx의 조건부 바인딩 */}
       {
         // modal의 상태가 true일 때 Modal 등장
-        modal == true ? <Modal></Modal> : '' 
+        modal == true ? <Modal titleState={titleState} boardTitle={boardTitle}></Modal> : '' 
       }
     </div>
   );
 }
 
 // modal component
-const Modal = () => {
+function Modal(props){
   return (
   <>
     <div className="modal">
-      <p>제목</p>
+      <p>{props.boardTitle[props.titleState]}</p>
+      <p>이름</p>
       <p>날짜</p>
-      <p>날짜</p>
+      <button>글 수정</button>
     </div>
   </>    
   )
@@ -106,7 +110,3 @@ const Modal = () => {
 // end modal component
 
 export default App;
-
-[1,2,3].map((a) => {
-  console.log(a);
-})
